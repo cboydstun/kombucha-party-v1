@@ -1,16 +1,60 @@
-# React + Vite
+# KombuchaParty.store — MVP Milestones
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Stack:** React + Vite · Deployed on Vercel
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## M1 · Project scaffold & data layer
 
-## React Compiler
+_Est. 1–2 hrs · Foundation_
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Init Vite + React project, push to GitHub
+- Add `data.json` with the 5 products, import as module
+- Connect repo to Vercel — auto-deploy on `main`
+- Set up component folder structure (`/components`, `/data`, `/pages`)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## M2 · Product listing page
+
+_Est. 2–3 hrs · Core UI_
+
+- `ProductCard` component — name, description, price
+- `ProductGrid` component mapping over `data.json`
+- Global CSS / Tailwind base styles, responsive grid (mobile-first)
+- `/` homepage renders the product grid
+
+---
+
+## M3 · Product detail & cart state
+
+_Est. 3–4 hrs · Interactivity_
+
+- `ProductDetail` page or modal — full description, price, CTA
+- Cart state via `useState` / `useContext` — add/remove items
+- Cart summary component — item count, subtotal
+- Client-side routing with React Router (`/` and `/cart`)
+
+> **Note:** Add a `slug` or `id` field to each product in `data.json` before wiring up routing — otherwise React Router has nothing clean to key off of.
+
+---
+
+## M4 · Checkout flow
+
+_Est. 3–5 hrs · Revenue-critical_
+
+- Integrate Stripe Checkout (hosted page) — recommended over Shopify Buy SDK for a simple MVP
+- Order confirmation / success page
+- Vercel env vars for API keys — never committed to repo
+- Optional: post-purchase email via Stripe webhook + Resend
+
+---
+
+## M5 · Polish & launch
+
+_Est. 2–3 hrs · Ship it_
+
+- Point `kombuchaparty.store` domain to Vercel
+- Final responsive QA — mobile, tablet, desktop
+- Lighthouse audit — fix any perf / accessibility flags
+- Add Google Analytics or Plausible for basic traffic visibility
