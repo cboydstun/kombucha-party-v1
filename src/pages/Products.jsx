@@ -87,6 +87,12 @@ function Products() {
           >
             <option value="featured">Featured</option>
             <option value="price-asc">Price: low → high</option>
+            <option value="price-desc">Price: high → low</option>
+            <option value="newest">Newest arrivals</option>
+            <option value="rating">Customer rating</option>
+            <option value="bestselling">Best selling</option>
+            <option value="az">Alphabetically: A → Z</option>
+            <option value="za">Alphabetically: Z → A</option>
           </select>
         </label>
       </div>
