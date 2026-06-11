@@ -1,25 +1,35 @@
 [
   {
+    "id": 1,
+    "slug": "beginner-kombucha-starter-kit",
     "name": "www.kombuchaparty.store Beginner Kombucha Starter Kit",
     "description": "A beginner-friendly all-in-one kit for first-time brewers, centered on a SCOBY, starter tea, tea, sugar, and a clear step-by-step guide. Best positioned as the simplest way to start brewing kombucha at home.",
     "price": 44.99
   },
   {
+    "id": 2,
+    "slug": "kombucha-education-kit",
     "name": "www.kombuchaparty.store Kombucha Education Kit",
     "description": "A classroom-ready kit designed for educators, with brewing basics, beginner instructions, and enough materials to teach the fermentation process in a hands-on way. Ideal for students, workshops, or family learning.",
     "price": 49.99
   },
   {
+    "id": 3,
+    "slug": "deluxe-beginner-kit-with-bottles",
     "name": "www.kombuchaparty.store Deluxe Beginner Kit with Bottles",
     "description": "A more complete starter bundle that includes everything in the beginner kit plus swing-top bottles and bottling tools for second fermentation. Good for customers who want a fuller first-batch experience.",
     "price": 79.99
   },
   {
+    "id": 4,
+    "slug": "scoby-starter-tea-essentials-pack",
     "name": "www.kombuchaparty.store SCOBY + Starter Tea Essentials Pack",
     "description": "A low-friction entry product for buyers who already have jars and want only the live culture, starter liquid, and basic brewing guidance. Useful as a lower-priced add-on or repeat purchase item.",
     "price": 34.99
   },
   {
+    "id": 5,
+    "slug": "refill-flavor-pack",
     "name": "www.kombuchaparty.store Refill & Flavor Pack",
     "description": "A consumables bundle with tea, sugar, flavoring ideas, and second-fermentation support for people who have already brewed once and want to keep going. Good for subscriptions and repeat sales.",
     "price": 24.99
