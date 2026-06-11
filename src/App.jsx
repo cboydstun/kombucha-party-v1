@@ -11,17 +11,25 @@ function App() {
           <Link to="/" className="text-xl font-semibold text-purple-700">
             Kombucha Party
           </Link>
-          <Link
-            to="/cart"
-            className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-purple-700"
-          >
-            Cart
-            {count > 0 && (
-              <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-purple-700 px-1.5 text-xs font-semibold text-white">
-                {count}
-              </span>
-            )}
-          </Link>
+          <div className="flex items-center gap-6">
+            <Link
+              to="/products"
+              className="text-sm font-medium text-gray-700 hover:text-purple-700"
+            >
+              Shop all
+            </Link>
+            <Link
+              to="/cart"
+              className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-purple-700"
+            >
+              Cart
+              {count > 0 && (
+                <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-purple-700 px-1.5 text-xs font-semibold text-white">
+                  {count}
+                </span>
+              )}
+            </Link>
+          </div>
         </nav>
       </header>
 
