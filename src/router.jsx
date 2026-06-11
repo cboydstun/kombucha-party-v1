@@ -5,6 +5,7 @@ import Products from './pages/Products.jsx'
 import ProductDetail from './pages/ProductDetail.jsx'
 import Cart from './pages/Cart.jsx'
 import Success from './pages/Success.jsx'
+import Contact from './pages/Contact.jsx'
 
 export const router = createBrowserRouter([
   {
@@ -16,7 +17,7 @@ export const router = createBrowserRouter([
       { path: 'product/:slug', element: <ProductDetail /> },
       { path: 'cart', element: <Cart /> },
       { path: 'success', element: <Success /> },
-
+      { path: 'contact', element: <Contact /> },
     ],
   },
 ])
