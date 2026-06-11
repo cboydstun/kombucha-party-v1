@@ -1,17 +1,17 @@
-import { useEffect } from 'react'
-import { Link, useSearchParams } from 'react-router'
-import { useCart } from '../context/CartContext.jsx'
+import { useEffect } from "react";
+import { Link, useSearchParams } from "react-router";
+import { useCart } from "../context/CartContext.jsx";
 
 function Success() {
-  const [params] = useSearchParams()
-  const sessionId = params.get('session_id')
-  const { clear } = useCart()
+  const [params] = useSearchParams();
+  const sessionId = params.get("session_id");
+  const { clear } = useCart();
 
   // Clear the cart once we land on the confirmation page after a successful
   // Stripe redirect.
   useEffect(() => {
-    if (sessionId) clear()
-  }, [sessionId, clear])
+    if (sessionId) clear();
+  }, [sessionId, clear]);
 
   return (
     <section className="max-w-xl text-center">
@@ -26,7 +26,7 @@ function Success() {
         Continue shopping
       </Link>
     </section>
-  )
+  );
 }
 
-export default Success
+export default Success;

@@ -1,16 +1,16 @@
-import { useState } from 'react'
+import { useState } from "react";
 
 function Newsletter() {
-  const [email, setEmail] = useState('')
-  const [subscribed, setSubscribed] = useState(false)
+  const [email, setEmail] = useState("");
+  const [subscribed, setSubscribed] = useState(false);
 
   // Local-only: there is no mailing-list backend wired up yet, so we just
   // acknowledge the submission client-side.
   function handleSubmit(e) {
-    e.preventDefault()
-    if (!email.trim()) return
-    setSubscribed(true)
-    setEmail('')
+    e.preventDefault();
+    if (!email.trim()) return;
+    setSubscribed(true);
+    setEmail("");
   }
 
   return (
@@ -50,7 +50,7 @@ function Newsletter() {
         </form>
       )}
     </section>
-  )
+  );
 }
 
-export default Newsletter
+export default Newsletter;

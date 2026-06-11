@@ -1,10 +1,10 @@
-import { Link, Outlet } from 'react-router'
-import { useCart } from './context/CartContext.jsx'
+import { Link, Outlet } from "react-router";
+import { useCart } from "./context/CartContext.jsx";
 
-import Navigation from './components/Navigation.jsx'
+import Navigation from "./components/Navigation.jsx";
 
 function App() {
-  const { count } = useCart()
+  const { count } = useCart();
 
   return (
     <div className="min-h-svh flex flex-col">
@@ -16,7 +16,7 @@ function App() {
         <Outlet />
       </main>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

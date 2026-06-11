@@ -1,41 +1,41 @@
-import { useMemo, useState } from 'react'
-import ProductGrid from '../components/ProductGrid.jsx'
-import products from '../data/products.json'
-import { productTitle } from '../lib/format.js'
+import { useMemo, useState } from "react";
+import ProductGrid from "../components/ProductGrid.jsx";
+import products from "../data/products.json";
+import { productTitle } from "../lib/format.js";
 
 function Products() {
-  const [search, setSearch] = useState('')
-  const [minPrice, setMinPrice] = useState('')
-  const [maxPrice, setMaxPrice] = useState('')
-  const [sort, setSort] = useState('featured')
+  const [search, setSearch] = useState("");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [sort, setSort] = useState("featured");
 
   const visible = useMemo(() => {
-    const q = search.trim().toLowerCase()
-    const min = minPrice === '' ? -Infinity : Number(minPrice)
-    const max = maxPrice === '' ? Infinity : Number(maxPrice)
+    const q = search.trim().toLowerCase();
+    const min = minPrice === "" ? -Infinity : Number(minPrice);
+    const max = maxPrice === "" ? Infinity : Number(maxPrice);
 
     const filtered = products.filter((p) => {
       const matchesText =
         !q ||
         productTitle(p.name).toLowerCase().includes(q) ||
-        p.description.toLowerCase().includes(q)
-      return matchesText && p.price >= min && p.price <= max
-    })
+        p.description.toLowerCase().includes(q);
+      return matchesText && p.price >= min && p.price <= max;
+    });
 
-    return sort === 'price-asc'
+    return sort === "price-asc"
       ? [...filtered].sort((a, b) => a.price - b.price)
-      : filtered
-  }, [search, minPrice, maxPrice, sort])
+      : filtered;
+  }, [search, minPrice, maxPrice, sort]);
 
   function clearFilters() {
-    setSearch('')
-    setMinPrice('')
-    setMaxPrice('')
-    setSort('featured')
+    setSearch("");
+    setMinPrice("");
+    setMaxPrice("");
+    setSort("featured");
   }
 
   const hasFilters =
-    search !== '' || minPrice !== '' || maxPrice !== '' || sort !== 'featured'
+    search !== "" || minPrice !== "" || maxPrice !== "" || sort !== "featured";
 
   return (
     <section>
@@ -99,7 +99,7 @@ function Products() {
 
       <div className="mt-6 flex items-center justify-between">
         <p className="text-sm text-gray-500">
-          {visible.length} {visible.length === 1 ? 'product' : 'products'}
+          {visible.length} {visible.length === 1 ? "product" : "products"}
         </p>
         {hasFilters && (
           <button
@@ -120,7 +120,7 @@ function Products() {
         </div>
       )}
     </section>
-  )
+  );
 }
 
-export default Products
+export default Products;

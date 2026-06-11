@@ -1,0 +1,80 @@
+import { Link } from "react-router";
+import posts from "../data/blogs.json";
+import BlogCover from "../components/blogs/BlogCover.jsx";
+import { formatDate } from "../lib/format.js";
+
+const emojis = ["📖", "🍓", "🛠️", "🫧", "🧋"];
+
+function Blogs() {
+  const sorted = [...posts].sort((a, b) => b.date.localeCompare(a.date));
+
+  return (
+    <div className="space-y-16">
+      {/* Header */}
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-purple-600 via-fuchsia-600 to-pink-500 px-6 py-16 text-center text-white sm:px-12">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+        >
+          <span className="absolute left-10 top-10 h-16 w-16 rounded-full bg-white/20 blur-md" />
+          <span className="absolute right-14 bottom-8 h-24 w-24 rounded-full bg-lime-300/30 blur-lg" />
+        </div>
+        <div className="relative mx-auto max-w-2xl">
+          <span className="inline-block rounded-full bg-white/20 px-4 py-1 text-sm font-semibold tracking-wide backdrop-blur">
+            📝 The Brew Blog
+          </span>
+          <h1 className="mt-6 font-display text-5xl font-bold leading-tight tracking-tight sm:text-6xl">
+            Tips, flavors & fizz
+          </h1>
+          <p className="mx-auto mt-5 max-w-xl text-lg text-white/90">
+            Guides, recipes, and troubleshooting to help you brew better
+            kombucha at home.
+          </p>
+        </div>
+      </section>
+
+      {/* Posts */}
+      <section className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {sorted.map((post, i) => (
+          <article
+            key={post.slug}
+            className="flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:shadow-md"
+          >
+            <Link to={`/blog/${post.slug}`}>
+              <BlogCover
+                src={post.image}
+                alt={post.title}
+                emoji={emojis[i % emojis.length]}
+                className="h-44 w-full"
+              />
+            </Link>
+            <div className="flex flex-1 flex-col p-5">
+              <p className="text-xs font-medium uppercase tracking-wide text-fuchsia-600">
+                {formatDate(post.date)} · {post.author}
+              </p>
+              <h2 className="mt-2 font-display text-xl font-semibold text-gray-900">
+                <Link
+                  to={`/blog/${post.slug}`}
+                  className="hover:text-purple-700"
+                >
+                  {post.title}
+                </Link>
+              </h2>
+              <p className="mt-2 flex-1 text-sm text-gray-600">
+                {post.summary}
+              </p>
+              <Link
+                to={`/blog/${post.slug}`}
+                className="mt-4 inline-block text-sm font-semibold text-purple-700 hover:underline"
+              >
+                Read more →
+              </Link>
+            </div>
+          </article>
+        ))}
+      </section>
+    </div>
+  );
+}
+
+export default Blogs;

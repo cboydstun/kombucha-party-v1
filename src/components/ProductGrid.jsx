@@ -1,4 +1,4 @@
-import ProductCard from './ProductCard.jsx'
+import ProductCard from "./ProductCard.jsx";
 
 function ProductGrid({ products }) {
   return (
@@ -7,7 +7,7 @@ function ProductGrid({ products }) {
         <ProductCard key={product.id} product={product} />
       ))}
     </div>
-  )
+  );
 }
 
-export default ProductGrid
+export default ProductGrid;

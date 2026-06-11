@@ -1,10 +1,10 @@
-import { Link } from 'react-router'
-import { useCart } from '../context/CartContext.jsx'
-import { productTitle, formatPrice } from '../lib/format.js'
+import { Link } from "react-router";
+import { useCart } from "../context/CartContext.jsx";
+import { productTitle, formatPrice } from "../lib/format.js";
 
 function ProductCard({ product }) {
-  const { addItem } = useCart()
-  const title = productTitle(product.name)
+  const { addItem } = useCart();
+  const title = productTitle(product.name);
 
   return (
     <article className="flex flex-col rounded-lg border border-gray-200 bg-white p-5 shadow-sm transition hover:shadow-md">
@@ -29,7 +29,7 @@ function ProductCard({ product }) {
         </button>
       </div>
     </article>
-  )
+  );
 }
 
-export default ProductCard
+export default ProductCard;

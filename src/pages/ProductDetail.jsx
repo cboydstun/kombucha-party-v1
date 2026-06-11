@@ -1,22 +1,25 @@
-import { Link, useParams } from 'react-router'
-import products from '../data/products.json'
-import { useCart } from '../context/CartContext.jsx'
-import { productTitle, formatPrice } from '../lib/format.js'
+import { Link, useParams } from "react-router";
+import products from "../data/products.json";
+import { useCart } from "../context/CartContext.jsx";
+import { productTitle, formatPrice } from "../lib/format.js";
 
 function ProductDetail() {
-  const { slug } = useParams()
-  const { addItem } = useCart()
-  const product = products.find((p) => p.slug === slug)
+  const { slug } = useParams();
+  const { addItem } = useCart();
+  const product = products.find((p) => p.slug === slug);
 
   if (!product) {
     return (
       <section>
         <h1 className="text-2xl font-bold text-gray-900">Product not found</h1>
-        <Link to="/" className="mt-4 inline-block text-purple-700 hover:underline">
+        <Link
+          to="/"
+          className="mt-4 inline-block text-purple-700 hover:underline"
+        >
           ← Back to products
         </Link>
       </section>
-    )
+    );
   }
 
   return (
@@ -41,7 +44,7 @@ function ProductDetail() {
         </button>
       </div>
     </section>
-  )
+  );
 }
 
-export default ProductDetail
+export default ProductDetail;

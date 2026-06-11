@@ -1,0 +1,29 @@
+[
+  {
+    "title": "The Ultimate Guide to Kombucha Brewing",
+    "slug": "ultimate-guide-kombucha-brewing",
+    "author": "Chris",
+    "date": "2024-06-01",
+    "summary": "A comprehensive beginner's guide to brewing kombucha at home, covering everything from selecting ingredients to troubleshooting common issues.",
+    "content": "Kombucha is a fermented tea that has gained popularity for its unique",
+    "image": "/images/blogs/ultimate-guide.jpg"
+  },
+  {
+    "title": "5 Creative Flavor Combinations for Your Next Batch",
+    "slug": "creative-flavor-combinations-kombucha",
+    "author": "Chris",
+    "date": "2024-06-10",
+    "summary": "Explore five unique and delicious flavor combinations to elevate your homemade kombucha and impress your friends.",
+    "content": "While traditional flavors like ginger and lemon are always a hit, there are countless ways to get creative with your kombucha.",
+    "image": "/images/blogs/flavor-combinations.jpg"
+  },
+  {
+    "title": "Troubleshooting Common Kombucha Brewing Issues",
+    "slug": "troubleshooting-kombucha-brewing-issues",
+    "author": "Chris",
+    "date": "2024-06-20",
+    "summary": "Learn how to identify and fix common problems that can arise during the kombucha brewing process, from mold to off-flavors.",
+    "content": "Brewing kombucha can be a rewarding experience, but it’s not without its challenges. Here are some common issues you might encounter and how to address them.",
+    "image": "/images/blogs/troubleshooting.jpg"
+  }
+]

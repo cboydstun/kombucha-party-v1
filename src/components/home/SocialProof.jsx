@@ -1,24 +1,27 @@
 // NOTE: placeholder marketing copy — swap for real stats/testimonials before launch.
 const stats = [
-  { value: '2,000+', label: 'home brewers' },
-  { value: '4.9★', label: 'average rating' },
-  { value: '100%', label: 'live cultures' },
-]
+  { value: "2,000+", label: "home brewers" },
+  { value: "4.9★", label: "average rating" },
+  { value: "100%", label: "live cultures" },
+];
 
 const testimonials = [
   {
-    quote: 'My first batch came out perfect. The guide made it impossible to mess up.',
-    name: 'Jordan M.',
+    quote:
+      "My first batch came out perfect. The guide made it impossible to mess up.",
+    name: "Jordan M.",
   },
   {
-    quote: 'The deluxe kit paid for itself in two weeks of not buying store kombucha.',
-    name: 'Priya S.',
+    quote:
+      "The deluxe kit paid for itself in two weeks of not buying store kombucha.",
+    name: "Priya S.",
   },
   {
-    quote: 'Bought the education kit for my classroom — the kids were obsessed.',
-    name: 'Mr. Alvarez',
+    quote:
+      "Bought the education kit for my classroom — the kids were obsessed.",
+    name: "Mr. Alvarez",
   },
-]
+];
 
 function SocialProof() {
   return (
@@ -36,10 +39,7 @@ function SocialProof() {
 
       <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
         {testimonials.map((t) => (
-          <figure
-            key={t.name}
-            className="rounded-2xl bg-white p-6 shadow-sm"
-          >
+          <figure key={t.name} className="rounded-2xl bg-white p-6 shadow-sm">
             <blockquote className="text-gray-700">“{t.quote}”</blockquote>
             <figcaption className="mt-4 text-sm font-semibold text-gray-900">
               — {t.name}
@@ -48,7 +48,7 @@ function SocialProof() {
         ))}
       </div>
     </section>
-  )
+  );
 }
 
-export default SocialProof
+export default SocialProof;

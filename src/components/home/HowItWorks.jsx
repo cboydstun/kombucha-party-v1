@@ -1,9 +1,25 @@
 const steps = [
-  { emoji: '🫖', title: 'Brew', text: 'Steep sweet tea and let it cool — your SCOBY’s favorite meal.' },
-  { emoji: '⏳', title: 'Ferment', text: 'Add the culture and wait 7–10 days while the magic happens.' },
-  { emoji: '🍓', title: 'Flavor', text: 'Bottle with fruit, ginger, or herbs for a second fizzy fermentation.' },
-  { emoji: '🥂', title: 'Enjoy', text: 'Chill, pop the top, and toast to your homemade kombucha.' },
-]
+  {
+    emoji: "🫖",
+    title: "Brew",
+    text: "Steep sweet tea and let it cool — your SCOBY’s favorite meal.",
+  },
+  {
+    emoji: "⏳",
+    title: "Ferment",
+    text: "Add the culture and wait 7–10 days while the magic happens.",
+  },
+  {
+    emoji: "🍓",
+    title: "Flavor",
+    text: "Bottle with fruit, ginger, or herbs for a second fizzy fermentation.",
+  },
+  {
+    emoji: "🥂",
+    title: "Enjoy",
+    text: "Chill, pop the top, and toast to your homemade kombucha.",
+  },
+];
 
 function HowItWorks() {
   return (
@@ -12,7 +28,9 @@ function HowItWorks() {
         <h2 className="font-display text-3xl font-bold text-gray-900 sm:text-4xl">
           How it works
         </h2>
-        <p className="mt-2 text-gray-600">From pantry to party in four easy steps.</p>
+        <p className="mt-2 text-gray-600">
+          From pantry to party in four easy steps.
+        </p>
       </div>
 
       <ol className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -33,7 +51,7 @@ function HowItWorks() {
         ))}
       </ol>
     </section>
-  )
+  );
 }
 
-export default HowItWorks
+export default HowItWorks;
