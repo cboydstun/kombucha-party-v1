@@ -1,8 +1,12 @@
 import React from 'react';
 import { useForm, ValidationError } from '@formspree/react';
 
+
+
 function ContactForm() {
-  const [state, handleSubmit] = useForm(process.env.FORMSPREE_KEY);
+  const [state, handleSubmit] = useForm(import.meta.env.VITE_FORMSPREE_KEY);
+
+  console.log(state)
 
   if (state.succeeded) {
       return <p>Thanks for joining!</p>;
