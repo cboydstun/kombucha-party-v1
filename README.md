@@ -1,60 +1,102 @@
-# KombuchaParty.store — MVP Milestones
+# KombuchaParty.store
 
-**Stack:** React + Vite · Deployed on Vercel
-
----
-
-## M1 · Project scaffold & data layer
-
-_Est. 1–2 hrs · Foundation_
-
-- Init Vite + React project, push to GitHub
-- Add `data.json` with the 5 products, import as module
-- Connect repo to Vercel — auto-deploy on `main`
-- Set up component folder structure (`/components`, `/data`, `/pages`)
+An e-commerce store for kombucha products. React + Vite frontend served by an Express backend, with a Stripe checkout flow and a blog.
 
 ---
 
-## M2 · Product listing page
+## Project Structure
 
-_Est. 2–3 hrs · Core UI_
-
-- `ProductCard` component — name, description, price
-- `ProductGrid` component mapping over `data.json`
-- Global CSS / Tailwind base styles, responsive grid (mobile-first)
-- `/` homepage renders the product grid
-
----
-
-## M3 · Product detail & cart state
-
-_Est. 3–4 hrs · Interactivity_
-
-- `ProductDetail` page or modal — full description, price, CTA
-- Cart state via `useState` / `useContext` — add/remove items
-- Cart summary component — item count, subtotal
-- Client-side routing with React Router (`/` and `/cart`)
-
-> **Note:** Add a `slug` or `id` field to each product in `data.json` before wiring up routing — otherwise React Router has nothing clean to key off of.
+```
+kombucha-party-v1/
+├── index.js          # Express server — API + static file serving
+├── db.json           # JSON flat-file database (blogs)
+├── .env              # Environment variables (not committed)
+└── client/           # React + Vite frontend
+    ├── src/
+    │   ├── pages/
+    │   ├── components/
+    │   ├── context/
+    │   └── data/
+    └── dist/         # Production build output (served by Express)
+```
 
 ---
 
-## M4 · Checkout flow
+## Getting Started
 
-_Est. 3–5 hrs · Revenue-critical_
+### 1. Install dependencies
 
-- Integrate Stripe Checkout (hosted page) — recommended over Shopify Buy SDK for a simple MVP
-- Order confirmation / success page
-- Vercel env vars for API keys — never committed to repo
-- Optional: post-purchase email via Stripe webhook + Resend
+```bash
+# Backend
+npm install
+
+# Frontend
+cd client && npm install
+```
+
+### 2. Set up environment variables
+
+Copy `.env.example` to `.env` and fill in the values:
+
+```bash
+cp .env.example .env
+```
+
+| Variable | Description |
+|---|---|
+| `MY_SECRET_TOKEN` | Bearer token for protected API routes |
+| `VITE_STRIPE_PUBLISHABLE_KEY` | Stripe publishable key |
+| `STRIPE_SECRET_KEY` | Stripe secret key |
+
+### 3. Build the frontend
+
+```bash
+cd client && npm run build
+```
+
+This outputs to `client/dist/`, which Express serves as static files.
+
+### 4. Start the server
+
+```bash
+npm run dev
+```
+
+Server runs on [http://localhost:8080](http://localhost:8080).
 
 ---
 
-## M5 · Polish & launch
+## API Endpoints
 
-_Est. 2–3 hrs · Ship it_
+All endpoints are prefixed with `/api/v1`.
 
-- Point `kombuchaparty.store` domain to Vercel
-- Final responsive QA — mobile, tablet, desktop
-- Lighthouse audit — fix any perf / accessibility flags
-- Add Google Analytics or Plausible for basic traffic visibility
+### Public
+
+| Method | Path | Description |
+|---|---|---|
+| `GET` | `/health` | Health check |
+| `GET` | `/howdy?name=string` | Returns a greeting |
+| `GET` | `/blogs` | List all blog posts |
+| `GET` | `/blogs/:id` | Get a blog post by ID |
+
+### Private (requires `Authorization: Bearer <token>`)
+
+| Method | Path | Description |
+|---|---|---|
+| `POST` | `/blogs` | Create a blog post |
+| `PUT` | `/blogs/:id` | Replace a blog post |
+| `PATCH` | `/blogs/:id` | Partially update a blog post |
+| `DELETE` | `/blogs/:id` | Delete a blog post |
+| `DELETE` | `/blogs` | Delete all blog posts |
+
+---
+
+## Frontend Dev (Vite HMR)
+
+To run the frontend with hot module replacement during development:
+
+```bash
+cd client && npm run dev
+```
+
+When ready to test with the Express server, run `npm run build` first.

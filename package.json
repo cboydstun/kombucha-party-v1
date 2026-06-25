@@ -1,35 +1,31 @@
 {
-  "name": "kombucha-party-v1",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "name": "backend-basics-002",
+  "version": "1.0.0",
+  "description": "howdy",
+  "main": "index.js",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
     "format": "prettier --write ."
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Coding-Curricula/backend-basics-002.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Coding-Curricula/backend-basics-002/issues"
+  },
+  "homepage": "https://github.com/Coding-Curricula/backend-basics-002#readme",
   "dependencies": {
-    "@formspree/react": "^3.0.0",
-    "@vercel/analytics": "^2.0.1",
-    "prettier": "^3.8.4",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6",
-    "react-router": "^7.17.0",
-    "stripe": "^22.2.0"
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "prettier": "^3.8.4"
   },
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
-    "@tailwindcss/vite": "^4.3.0",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.1",
-    "eslint": "^10.3.0",
-    "eslint-plugin-react-hooks": "^7.1.1",
-    "eslint-plugin-react-refresh": "^0.5.2",
-    "globals": "^17.6.0",
-    "tailwindcss": "^4.3.0",
-    "vite": "^8.0.12"
+    "nodemon": "^3.1.14"
   }
 }
