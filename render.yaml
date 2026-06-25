@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: kombucha-party
+    env: node
+    buildCommand: npm install && cd client && npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: MY_SECRET_TOKEN
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: VITE_FORMSPREE_KEY
+        sync: false

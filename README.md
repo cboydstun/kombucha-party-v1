@@ -42,11 +42,11 @@ Copy `.env.example` to `.env` and fill in the values:
 cp .env.example .env
 ```
 
-| Variable | Description |
-|---|---|
-| `MY_SECRET_TOKEN` | Bearer token for protected API routes |
-| `VITE_STRIPE_PUBLISHABLE_KEY` | Stripe publishable key |
-| `STRIPE_SECRET_KEY` | Stripe secret key |
+| Variable                      | Description                           |
+| ----------------------------- | ------------------------------------- |
+| `MY_SECRET_TOKEN`             | Bearer token for protected API routes |
+| `VITE_STRIPE_PUBLISHABLE_KEY` | Stripe publishable key                |
+| `STRIPE_SECRET_KEY`           | Stripe secret key                     |
 
 ### 3. Build the frontend
 
@@ -72,22 +72,39 @@ All endpoints are prefixed with `/api/v1`.
 
 ### Public
 
-| Method | Path | Description |
-|---|---|---|
-| `GET` | `/health` | Health check |
-| `GET` | `/howdy?name=string` | Returns a greeting |
-| `GET` | `/blogs` | List all blog posts |
-| `GET` | `/blogs/:id` | Get a blog post by ID |
+| Method | Path                 | Description           |
+| ------ | -------------------- | --------------------- |
+| `GET`  | `/health`            | Health check          |
+| `GET`  | `/howdy?name=string` | Returns a greeting    |
+| `GET`  | `/blogs`             | List all blog posts   |
+| `GET`  | `/blogs/:id`         | Get a blog post by ID |
 
 ### Private (requires `Authorization: Bearer <token>`)
 
-| Method | Path | Description |
-|---|---|---|
-| `POST` | `/blogs` | Create a blog post |
-| `PUT` | `/blogs/:id` | Replace a blog post |
-| `PATCH` | `/blogs/:id` | Partially update a blog post |
-| `DELETE` | `/blogs/:id` | Delete a blog post |
-| `DELETE` | `/blogs` | Delete all blog posts |
+| Method   | Path         | Description                  |
+| -------- | ------------ | ---------------------------- |
+| `POST`   | `/blogs`     | Create a blog post           |
+| `PUT`    | `/blogs/:id` | Replace a blog post          |
+| `PATCH`  | `/blogs/:id` | Partially update a blog post |
+| `DELETE` | `/blogs/:id` | Delete a blog post           |
+| `DELETE` | `/blogs`     | Delete all blog posts        |
+
+---
+
+## Deploying to Render
+
+This repo includes a `render.yaml` for one-click deployment as a single web service.
+
+1. Push this repo to GitHub
+2. Go to [render.com](https://render.com) → New → Web Service → connect your repo
+3. Render will auto-detect `render.yaml` and configure the service
+4. Add the following env vars in the Render dashboard (marked `sync: false` so they're never committed):
+   - `MY_SECRET_TOKEN` — bearer token for protected API routes
+   - `STRIPE_SECRET_KEY` — Stripe secret key
+   - `VITE_FORMSPREE_KEY` — Formspree form key (used at build time by Vite)
+5. Deploy — Render installs deps, builds the React app, and starts Express
+
+> **Note:** `db.json` writes (blog CRUD) will not persist across deploys or service restarts on Render's ephemeral filesystem. Replace with a real database (e.g. Render Postgres, PlanetScale) when you need durability.
 
 ---
 
