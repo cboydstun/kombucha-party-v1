@@ -1,11 +1,48 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router";
-import posts from "../data/blogs.json";
 import BlogCover from "../components/blogs/BlogCover.jsx";
 import { formatDate } from "../lib/format.js";
 
 const emojis = ["📖", "🍓", "🛠️", "🫧", "🧋"];
 
 function Blogs() {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch("/api/v1/blogs")
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to load blog posts");
+        return res.json();
+      })
+      .then((data) => {
+        setPosts(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-32 text-gray-500">
+        Loading posts…
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="mx-auto max-w-xl py-32 text-center">
+        <div className="text-6xl">🫙</div>
+        <p className="mt-4 text-gray-600">{error}</p>
+      </div>
+    );
+  }
+
   const sorted = [...posts].sort((a, b) => b.date.localeCompare(a.date));
 
   return (

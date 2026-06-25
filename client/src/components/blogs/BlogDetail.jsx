@@ -1,11 +1,53 @@
+import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router";
-import posts from "../../data/blogs.json";
 import BlogCover from "./BlogCover.jsx";
 import { formatDate } from "../../lib/format.js";
 
 function BlogDetail() {
   const { slug } = useParams();
-  const post = posts.find((p) => p.slug === slug);
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch("/api/v1/blogs")
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to load blog posts");
+        return res.json();
+      })
+      .then((data) => {
+        const found = data.find((p) => p.slug === slug);
+        setPost(found ?? null);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-32 text-gray-500">
+        Loading…
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="mx-auto max-w-xl text-center">
+        <div className="text-6xl">🫙</div>
+        <p className="mt-4 text-gray-600">{error}</p>
+        <Link
+          to="/blogs"
+          className="mt-6 inline-block rounded-full bg-purple-700 px-6 py-3 font-semibold text-white hover:bg-purple-800"
+        >
+          ← Back to the blog
+        </Link>
+      </section>
+    );
+  }
 
   if (!post) {
     return (
