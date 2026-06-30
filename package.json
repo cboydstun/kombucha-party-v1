@@ -1,32 +1,25 @@
 {
-  "name": "backend-basics-002",
+  "name": "kombucha-party-v1",
   "version": "1.0.0",
-  "description": "howdy",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "nodemon index.js",
     "format": "prettier --write ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Coding-Curricula/backend-basics-002.git"
+    "url": "git+https://github.com/cboydstun/kombucha-party-v1.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
+  "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/Coding-Curricula/backend-basics-002/issues"
+    "url": "https://github.com/cboydstun/kombucha-party-v1/issues"
   },
-  "homepage": "https://github.com/Coding-Curricula/backend-basics-002#readme",
+  "homepage": "https://github.com/cboydstun/kombucha-party-v1#readme",
   "dependencies": {
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1",
-    "prettier": "^3.8.4"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.14"
+    "prettier": "^3.9.4"
   }
 }
