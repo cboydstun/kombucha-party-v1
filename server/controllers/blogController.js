@@ -1,58 +1,58 @@
-import { db, saveDb } from "../data/database.js";
+import Blog from "../models/Blog.js";
 
-export const getBlogs = (req, res) => {
+export const getBlogs = async (req, res) => {
   try {
-    res.json(db.blogs);
+    const blogs = await Blog.find();
+    res.json(blogs);
   } catch (error) {
     res.status(500).send("Error retrieving blog posts");
   }
 };
 
-export const createBlog = (req, res) => {
+export const createBlog = async (req, res) => {
   try {
-    const newBlog = req.body;
-    db.blogs.push(newBlog);
-    saveDb();
+    const newBlog = new Blog(req.body);
+    await newBlog.save();
     res.status(201).json(newBlog);
   } catch (error) {
     res.status(500).send("Error creating blog post");
   }
 };
 
-export const updateBlog = (req, res) => {
+export const updateBlog = async (req, res) => {
   try {
-    const id = parseInt(req.params.id, 10);
-    const index = db.blogs.findIndex((b) => b.id === id);
-    if (index === -1) {
+    const id = req.params.id;
+    const updatedBlog = await Blog.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    if (!updatedBlog) {
       return res.status(404).send("Blog not found");
     }
-    db.blogs[index] = req.body;
-    saveDb();
-    res.json(db.blogs[index]);
+    res.json(updatedBlog);
   } catch (error) {
     res.status(500).send("Error updating blog post");
   }
 };
 
-export const patchBlog = (req, res) => {
+export const patchBlog = async (req, res) => {
   try {
-    const id = parseInt(req.params.id, 10);
-    const blog = db.blogs.find((b) => b.id === id);
-    if (!blog) {
+    const id = req.params.id;
+    const updatedBlog = await Blog.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    if (!updatedBlog) {
       return res.status(404).send("Blog not found");
     }
-    Object.assign(blog, req.body);
-    saveDb();
-    res.json(blog);
+    res.json(updatedBlog);
   } catch (error) {
     res.status(500).send("Error updating blog post");
   }
 };
 
-export const getBlogById = (req, res) => {
+export const getBlogById = async (req, res) => {
   try {
-    const id = parseInt(req.params.id, 10);
-    const blog = db.blogs.find((b) => b.id === id);
+    const id = req.params.id;
+    const blog = await Blog.findById(id);
     if (!blog) {
       return res.status(404).send("Blog not found");
     }
@@ -62,25 +62,22 @@ export const getBlogById = (req, res) => {
   }
 };
 
-export const deleteBlog = (req, res) => {
+export const deleteBlog = async (req, res) => {
   try {
-    const id = parseInt(req.params.id, 10);
-    const index = db.blogs.findIndex((b) => b.id === id);
-    if (index === -1) {
+    const id = req.params.id;
+    const deletedBlog = await Blog.findByIdAndDelete(id);
+    if (!deletedBlog) {
       return res.status(404).send("Blog not found");
     }
-    db.blogs.splice(index, 1);
-    saveDb();
     res.status(204).send();
   } catch (error) {
     res.status(500).send("Error deleting blog post");
   }
 };
 
-export const deleteAllBlogs = (req, res) => {
+export const deleteAllBlogs = async (req, res) => {
   try {
-    db.blogs = [];
-    saveDb();
+    await Blog.deleteMany({});
     res.status(204).send();
   } catch (error) {
     res.status(500).send("Error deleting all blog posts");

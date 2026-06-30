@@ -7,7 +7,7 @@ import "dotenv/config";
 import connectDB from "./data/database.js";
 
 import healthRouter from "./routes/healthRoutes.js";
-// import blogRouter from "./routes/blogRoutes.js";
+import blogRouter from "./routes/blogRoutes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(express.static(CLIENT_DIST));
 
 app.use("/api/v1/", healthRouter);
-// app.use("/api/v1/", blogRouter);
+app.use("/api/v1/", blogRouter);
 
 // SPA fallback
 app.use((req, res) => {
