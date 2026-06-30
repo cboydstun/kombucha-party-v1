@@ -48,7 +48,7 @@ function Blogs() {
   return (
     <div className="space-y-16">
       {/* Header */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-purple-600 via-fuchsia-600 to-pink-500 px-6 py-16 text-center text-white sm:px-12">
+      <section className="relative overflow-hidden rounded-3xl from-purple-600 via-fuchsia-600 to-pink-500 px-6 py-16 text-center text-white sm:px-12">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"
