@@ -1,9 +1,11 @@
-import fs from "fs";
+import mongoose from "mongoose";
 
-const DB_PATH = "db.json";
-
-export const db = JSON.parse(fs.readFileSync("db.json", "utf-8"));
-
-export const saveDb = () => {
-  fs.writeFileSync(DB_PATH, JSON.stringify(db, null, 2));
-};
+export default async function connectDB() {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log("Connected to MongoDB");
+  } catch (error) {
+    console.error("Error connecting to MongoDB:", error);
+    process.exit(1);
+  }
+}
