@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(express.static(CLIENT_DIST));
 
 app.use("/api/v1/", healthRouter);
-app.use("/api/v1/", blogRouter);
+app.use("/api/v1/blogs", blogRouter);
 
 // SPA fallback
 app.use((req, res) => {
