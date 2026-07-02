@@ -16,7 +16,7 @@ function BlogDetail() {
         return res.json();
       })
       .then((data) => {
-        const found = data.find((p) => p.slug === slug);
+        const found = data.find((p) => p._id === slug);
         setPost(found ?? null);
         setLoading(false);
       })
@@ -79,7 +79,7 @@ function BlogDetail() {
       </Link>
 
       <p className="mt-6 text-xs font-medium uppercase tracking-wide text-fuchsia-600">
-        {formatDate(post.date)} · {post.author}
+        {formatDate(post.createdAt?.slice(0, 10))} · {post.author}
       </p>
       <h1 className="mt-2 font-display text-4xl font-bold leading-tight tracking-tight text-gray-900">
         {post.title}
@@ -92,10 +92,8 @@ function BlogDetail() {
         className="mt-6 h-64 w-full rounded-3xl"
       />
 
-      <p className="mt-8 text-lg font-medium text-gray-700">{post.summary}</p>
-
-      <div className="mt-6 space-y-4 leading-relaxed text-gray-700">
-        {post.content
+      <div className="mt-8 space-y-4 leading-relaxed text-gray-700">
+        {(post.content ?? "")
           .split("\n")
           .filter((para) => para.trim())
           .map((para, i) => (

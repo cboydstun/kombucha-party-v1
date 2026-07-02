@@ -1,5 +1,6 @@
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { useCart } from "../context/CartContext.jsx";
+import { useAuth } from "../context/AuthContext.jsx";
 
 const linkClass = ({ isActive }) =>
   `text-sm font-medium transition hover:text-purple-700 ${
@@ -8,6 +9,13 @@ const linkClass = ({ isActive }) =>
 
 export default function Navigation() {
   const { count } = useCart();
+  const { isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    logout();
+    navigate("/");
+  }
 
   return (
     <nav className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-4">
@@ -54,6 +62,25 @@ export default function Navigation() {
             </span>
           )}
         </NavLink>
+
+        {isAuthenticated ? (
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="text-sm font-medium text-gray-700 transition hover:text-purple-700"
+          >
+            Logout
+          </button>
+        ) : (
+          <>
+            <NavLink to="/login" className={linkClass}>
+              Login
+            </NavLink>
+            <NavLink to="/register" className={linkClass}>
+              Register
+            </NavLink>
+          </>
+        )}
       </div>
     </nav>
   );

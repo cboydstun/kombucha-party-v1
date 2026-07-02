@@ -19,7 +19,7 @@ const PORT = process.env.PORT || 8080;
 
 await connectDB();
 
-const CLIENT_DIST = path.join(__dirname, "client", "dist");
+const CLIENT_DIST = path.join(__dirname, "..", "client", "dist");
 
 app.use(helmet());
 app.use(express.json());

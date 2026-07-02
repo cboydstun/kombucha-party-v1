@@ -10,6 +10,8 @@ import About from "./pages/About.jsx";
 import FAQ from "./pages/FAQ.jsx";
 import Blogs from "./pages/Blogs.jsx";
 import BlogDetail from "./components/blogs/BlogDetail.jsx";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +28,8 @@ export const router = createBrowserRouter([
       { path: "faq", element: <FAQ /> },
       { path: "blogs", element: <Blogs /> },
       { path: "blog/:slug", element: <BlogDetail /> },
+      { path: "login", element: <Login /> },
+      { path: "register", element: <Register /> },
     ],
   },
 ]);

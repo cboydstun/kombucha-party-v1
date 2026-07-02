@@ -43,7 +43,9 @@ function Blogs() {
     );
   }
 
-  const sorted = [...posts].sort((a, b) => b.date.localeCompare(a.date));
+  const sorted = [...posts].sort((a, b) =>
+    (b.createdAt || "").localeCompare(a.createdAt || ""),
+  );
 
   return (
     <div className="space-y-16">
@@ -74,10 +76,10 @@ function Blogs() {
       <section className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {sorted.map((post, i) => (
           <article
-            key={post.slug}
+            key={post._id}
             className="flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:shadow-md"
           >
-            <Link to={`/blog/${post.slug}`}>
+            <Link to={`/blog/${post._id}`}>
               <BlogCover
                 src={post.image}
                 alt={post.title}
@@ -87,21 +89,23 @@ function Blogs() {
             </Link>
             <div className="flex flex-1 flex-col p-5">
               <p className="text-xs font-medium uppercase tracking-wide text-fuchsia-600">
-                {formatDate(post.date)} · {post.author}
+                {formatDate(post.createdAt?.slice(0, 10))} · {post.author}
               </p>
               <h2 className="mt-2 font-display text-xl font-semibold text-gray-900">
                 <Link
-                  to={`/blog/${post.slug}`}
+                  to={`/blog/${post._id}`}
                   className="hover:text-purple-700"
                 >
                   {post.title}
                 </Link>
               </h2>
               <p className="mt-2 flex-1 text-sm text-gray-600">
-                {post.summary}
+                {post.content?.length > 140
+                  ? `${post.content.slice(0, 140)}…`
+                  : post.content}
               </p>
               <Link
-                to={`/blog/${post.slug}`}
+                to={`/blog/${post._id}`}
                 className="mt-4 inline-block text-sm font-semibold text-purple-700 hover:underline"
               >
                 Read more →
