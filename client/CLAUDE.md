@@ -13,7 +13,9 @@ There is no test runner configured yet; `package.json` has no `test` script and 
 
 ## Architecture
 
-Single-page React 19 app bootstrapped with Vite 8. The entry chain is `index.html` → `src/main.jsx` (mounts `<App>` into `#root` under `<StrictMode>`) → `src/App.jsx`. The codebase is currently the default Vite starter scaffold — `App.jsx` is the only real component.
+Single-page React 19 app bootstrapped with Vite 8. Entry chain: `index.html` → `src/main.jsx` → `src/App.jsx`. `main.jsx` wraps the app in `AuthProvider` then `CartProvider`, then renders `<RouterProvider>`. Routes live in `src/router.jsx`; `App.jsx` is the layout shell (nav + `<Outlet>`). Pages in `src/pages/`, shared components in `src/components/`, contexts in `src/context/`.
+
+The Vite dev server proxies `/api` → `http://localhost:8080` (the Express server in `../server`). Stripe checkout is a Vercel serverless function at `api/create-checkout-session.js` (Node runtime — ESLint applies Node globals to `api/`). See the root `CLAUDE.md` for how client and server connect.
 
 Key conventions to match existing code:
 

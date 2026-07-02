@@ -1,6 +1,6 @@
 # KombuchaParty.store
 
-An e-commerce store for kombucha products. React + Vite frontend served by an Express backend, with a Stripe checkout flow and a blog.
+An e-commerce store for kombucha products. React + Vite frontend served by an Express backend, with MongoDB-backed auth + blog, a Stripe checkout flow, and a contact form.
 
 ---
 
@@ -8,16 +8,17 @@ An e-commerce store for kombucha products. React + Vite frontend served by an Ex
 
 ```
 kombucha-party-v1/
-├── index.js          # Express server — API + static file serving
-├── db.json           # JSON flat-file database (blogs)
-├── .env              # Environment variables (not committed)
-└── client/           # React + Vite frontend
-    ├── src/
-    │   ├── pages/
-    │   ├── components/
-    │   ├── context/
-    │   └── data/
-    └── dist/         # Production build output (served by Express)
+├── server/           # Express 5 API + static host (ESM)
+│   ├── index.js      # Server entry — serves client/dist + /api/v1 routes
+│   ├── controllers/  # health, blog, auth
+│   ├── models/       # Mongoose models: User, Blog
+│   ├── middleware/   # authMiddleware — verifies JWT
+│   ├── routes/       # health, blog, auth routers
+│   └── data/         # database.js — Mongoose connection
+└── client/           # React 19 + Vite frontend
+    ├── src/          # pages/, components/, context/, data/
+    ├── api/          # Vercel serverless functions (Stripe checkout)
+    └── dist/         # Production build (served by Express)
 ```
 
 ---
@@ -27,26 +28,26 @@ kombucha-party-v1/
 ### 1. Install dependencies
 
 ```bash
-# Backend
-npm install
-
-# Frontend
-cd client && npm install
+cd server && npm install
+cd ../client && npm install
 ```
 
-### 2. Set up environment variables
+### 2. Configure the server environment
 
-Copy `.env.example` to `.env` and fill in the values:
+Copy `server/.env.example` to `server/.env` and fill in the values:
 
 ```bash
-cp .env.example .env
+cd server && cp .env.example .env
 ```
 
-| Variable                      | Description                           |
-| ----------------------------- | ------------------------------------- |
-| `MY_SECRET_TOKEN`             | Bearer token for protected API routes |
-| `VITE_STRIPE_PUBLISHABLE_KEY` | Stripe publishable key                |
-| `STRIPE_SECRET_KEY`           | Stripe secret key                     |
+| Variable      | Description                              |
+| ------------- | ---------------------------------------- |
+| `PORT`        | Server port (default `8080`)             |
+| `MONGODB_URI` | MongoDB connection string (e.g. Atlas)   |
+| `JWT_SECRET`  | Secret used to sign and verify auth JWTs |
+
+Stripe checkout runs as a Vercel serverless function (`client/api/`) and reads
+`STRIPE_SECRET_KEY` from the client deployment's environment.
 
 ### 3. Build the frontend
 
@@ -54,12 +55,12 @@ cp .env.example .env
 cd client && npm run build
 ```
 
-This outputs to `client/dist/`, which Express serves as static files.
+Outputs to `client/dist/`, which Express serves as static files.
 
 ### 4. Start the server
 
 ```bash
-npm run dev
+cd server && npm run dev
 ```
 
 Server runs on [http://localhost:8080](http://localhost:8080).
@@ -76,10 +77,14 @@ All endpoints are prefixed with `/api/v1`.
 | ------ | -------------------- | --------------------- |
 | `GET`  | `/health`            | Health check          |
 | `GET`  | `/howdy?name=string` | Returns a greeting    |
+| `POST` | `/auth/register`     | Register a user       |
+| `POST` | `/auth/login`        | Log in, returns a JWT |
 | `GET`  | `/blogs`             | List all blog posts   |
 | `GET`  | `/blogs/:id`         | Get a blog post by ID |
 
-### Private (requires `Authorization: Bearer <token>`)
+### Private (requires `Authorization: Bearer <jwt>`)
+
+Obtain the JWT from `POST /auth/login`.
 
 | Method   | Path         | Description                  |
 | -------- | ------------ | ---------------------------- |
@@ -93,27 +98,26 @@ All endpoints are prefixed with `/api/v1`.
 
 ## Deploying to Render
 
-This repo includes a `render.yaml` for one-click deployment as a single web service.
+`render.yaml` deploys the server as a single web service that serves both the
+built React app and the API. Placed at the repo root (Render auto-detects it
+there).
 
 1. Push this repo to GitHub
-2. Go to [render.com](https://render.com) → New → Web Service → connect your repo
-3. Render will auto-detect `render.yaml` and configure the service
-4. Add the following env vars in the Render dashboard (marked `sync: false` so they're never committed):
-   - `MY_SECRET_TOKEN` — bearer token for protected API routes
-   - `STRIPE_SECRET_KEY` — Stripe secret key
-   - `VITE_FORMSPREE_KEY` — Formspree form key (used at build time by Vite)
-5. Deploy — Render installs deps, builds the React app, and starts Express
-
-> **Note:** `db.json` writes (blog CRUD) will not persist across deploys or service restarts on Render's ephemeral filesystem. Replace with a real database (e.g. Render Postgres, PlanetScale) when you need durability.
+2. Go to [render.com](https://render.com) → New → Blueprint → connect your repo
+3. Render reads `render.yaml` and configures the service
+4. Add these env vars in the dashboard (marked `sync: false`, never committed):
+   - `MONGODB_URI` — MongoDB connection string
+   - `JWT_SECRET` — JWT signing secret
+   - `STRIPE_SECRET_KEY` — Stripe secret key (if serving checkout from here)
 
 ---
 
 ## Frontend Dev (Vite HMR)
 
-To run the frontend with hot module replacement during development:
-
 ```bash
 cd client && npm run dev
 ```
 
-When ready to test with the Express server, run `npm run build` first.
+The Vite dev server proxies `/api` to `http://localhost:8080`, so run the
+Express server alongside it. When ready to test the production bundle, run
+`npm run build` and let Express serve `client/dist`.
