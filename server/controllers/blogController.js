@@ -19,6 +19,7 @@ export const createBlog = async (req, res) => {
   }
 };
 
+// PUT - /api/v1/blogs/:id - Update a blog post by ID - PRIVATE
 export const updateBlog = async (req, res) => {
   try {
     const id = req.params.id;
