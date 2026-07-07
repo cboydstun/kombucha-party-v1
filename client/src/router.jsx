@@ -13,7 +13,8 @@ import BlogDetail from "./components/blogs/BlogDetail.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
-import { RequireAuth } from "./context/AuthContext.jsx";
+import AdminDashboard from "./pages/AdminDashboard.jsx";
+import { RequireAuth, RequireAdmin } from "./context/AuthContext.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
       {
         element: <RequireAuth />,
         children: [{ path: "dashboard", element: <Dashboard /> }],
+      },
+      {
+        element: <RequireAdmin />,
+        children: [{ path: "admin/dashboard", element: <AdminDashboard /> }],
       },
     ],
   },

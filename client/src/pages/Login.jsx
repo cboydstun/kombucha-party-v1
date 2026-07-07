@@ -26,9 +26,9 @@ function Login() {
       console.log("Login response:", res);
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Login failed");
-      login(data.token);
+      login(data.token, data.role);
       console.log("Login successful, navigating to dashboard");
-      navigate("/dashboard");
+      navigate(data.role === "admin" ? "/admin/dashboard" : "/dashboard");
       console.log("Navigation to dashboard complete");
     } catch (err) {
       setError(err.message || "Something went wrong");

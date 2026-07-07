@@ -5,6 +5,7 @@ import User from "../models/User.js";
 
 const secretKey = process.env.JWT_SECRET;
 
+// POST - /api/v1/register - Register route - PUBLIC
 export async function registerUser(req, res) {
   try {
     const { username, email, password } = req.body;
@@ -50,7 +51,9 @@ export async function loginUser(req, res) {
     });
 
     // Send the token in the response
-    res.status(200).json({ message: "Login successful", token });
+    res
+      .status(200)
+      .json({ message: "Login successful", token, role: user.role });
   } catch (error) {
     res.status(500).json({ error: "Login failed" });
   }
