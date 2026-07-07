@@ -108,7 +108,7 @@ function Blogs() {
                 to={`/blog/${post._id}`}
                 className="mt-4 inline-block text-sm font-semibold text-purple-700 hover:underline"
               >
-                Read more →
+                Read more
               </Link>
             </div>
           </article>

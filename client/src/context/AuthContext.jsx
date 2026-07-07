@@ -5,6 +5,7 @@ import {
   useMemo,
   useState,
 } from "react";
+import { Navigate, Outlet } from "react-router";
 
 const AuthContext = createContext(null);
 
@@ -41,4 +42,9 @@ export function useAuth() {
   const ctx = useContext(AuthContext);
   if (!ctx) throw new Error("useAuth must be used within an AuthProvider");
   return ctx;
+}
+
+export function RequireAuth() {
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
 }

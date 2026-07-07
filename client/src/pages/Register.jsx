@@ -2,19 +2,30 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 
 function Register() {
+  // redirect after successful registration
   const navigate = useNavigate();
 
+  // inputs for the form
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // state for error and loading
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e) {
+    // prevent the default form submission behavior
     e.preventDefault();
+    // reset error and set loading state
     setLoading(true);
     setError(null);
+
+    // registration process
     try {
+      // register the user with username, email, and password
+      console.log("Registering user:", { username, email, password });
+
       const res = await fetch("/api/v1/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -24,6 +35,7 @@ function Register() {
       if (!res.ok) throw new Error(data.error || "Registration failed");
       navigate("/login");
     } catch (err) {
+      // set error message and reset loading state
       setError(err.message || "Something went wrong");
       setLoading(false);
     }

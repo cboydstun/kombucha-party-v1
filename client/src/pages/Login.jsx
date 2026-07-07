@@ -16,15 +16,20 @@ function Login() {
     setLoading(true);
     setError(null);
     try {
+      console.log("Logging in user:", { email, password });
+      // login the user with email and password
       const res = await fetch("/api/v1/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
+      console.log("Login response:", res);
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Login failed");
       login(data.token);
-      navigate("/");
+      console.log("Login successful, navigating to dashboard");
+      navigate("/dashboard");
+      console.log("Navigation to dashboard complete");
     } catch (err) {
       setError(err.message || "Something went wrong");
       setLoading(false);

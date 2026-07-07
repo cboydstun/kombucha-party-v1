@@ -12,6 +12,8 @@ import Blogs from "./pages/Blogs.jsx";
 import BlogDetail from "./components/blogs/BlogDetail.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
+import { RequireAuth } from "./context/AuthContext.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +32,10 @@ export const router = createBrowserRouter([
       { path: "blog/:slug", element: <BlogDetail /> },
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
+      {
+        element: <RequireAuth />,
+        children: [{ path: "dashboard", element: <Dashboard /> }],
+      },
     ],
   },
 ]);
