@@ -12,8 +12,10 @@ import Blogs from "./pages/Blogs.jsx";
 import BlogDetail from "./components/blogs/BlogDetail.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
-import Dashboard from "./pages/Dashboard.jsx";
-import AdminDashboard from "./pages/AdminDashboard.jsx";
+import UserDashboard from "./pages/user/UserDashboard.jsx";
+import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
+import AdminOrders from "./pages/admin/Orders.jsx";
+import AdminBlogs from "./pages/admin/Blogs.jsx";
 import { RequireAuth, RequireAdmin } from "./context/AuthContext.jsx";
 
 export const router = createBrowserRouter([
@@ -35,11 +37,15 @@ export const router = createBrowserRouter([
       { path: "register", element: <Register /> },
       {
         element: <RequireAuth />,
-        children: [{ path: "dashboard", element: <Dashboard /> }],
+        children: [{ path: "dashboard", element: <UserDashboard /> }],
       },
       {
         element: <RequireAdmin />,
-        children: [{ path: "admin/dashboard", element: <AdminDashboard /> }],
+        children: [
+          { path: "admin/dashboard", element: <AdminDashboard /> },
+          { path: "admin/orders", element: <AdminOrders /> },
+          { path: "admin/blogs", element: <AdminBlogs /> },
+        ],
       },
     ],
   },

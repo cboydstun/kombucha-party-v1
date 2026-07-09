@@ -1,24 +1,10 @@
 import express from "express";
-import {
-  getBlogs,
-  createBlog,
-  updateBlog,
-  patchBlog,
-  getBlogById,
-  deleteBlog,
-  deleteAllBlogs,
-} from "../controllers/blogController.js";
-
-import authMiddleware from "../middleware/authMiddleware.js";
+import { getBlogs, getBlogById } from "../controllers/blogController.js";
 
 const router = express.Router();
 
+// Reads only. Blog writes live under /api/v1/admin/blogs, behind requireAdmin.
 router.get("/", getBlogs);
-router.post("/", authMiddleware, createBlog);
-router.put("/:id", authMiddleware, updateBlog);
-router.patch("/:id", authMiddleware, patchBlog);
 router.get("/:id", getBlogById);
-router.delete("/:id", authMiddleware, deleteBlog);
-router.delete("/", authMiddleware, deleteAllBlogs);
 
 export default router;

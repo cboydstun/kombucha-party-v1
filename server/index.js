@@ -10,6 +10,7 @@ import connectDB from "./data/database.js";
 import healthRouter from "./routes/healthRoutes.js";
 import blogRouter from "./routes/blogRoutes.js";
 import authRouter from "./routes/auth.js";
+import adminRouter from "./routes/adminRoutes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -28,6 +29,7 @@ app.use(express.static(CLIENT_DIST));
 app.use("/api/v1/", healthRouter);
 app.use("/api/v1/blogs", blogRouter);
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/admin", adminRouter);
 
 // SPA fallback
 app.use((req, res) => {
