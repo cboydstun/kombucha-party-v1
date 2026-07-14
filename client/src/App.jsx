@@ -1,11 +1,8 @@
-import { Link, Outlet } from "react-router";
-import { useCart } from "./context/CartContext.jsx";
+import { Outlet } from "react-router";
 
 import Navigation from "./components/Navigation.jsx";
 
 function App() {
-  const { count } = useCart();
-
   return (
     <div className="min-h-svh flex flex-col">
       <header className="border-b border-gray-200 bg-white">

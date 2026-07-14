@@ -9,11 +9,13 @@ An e-commerce store for kombucha products. React + Vite frontend served by an Ex
 ```
 kombucha-party-v1/
 ├── server/           # Express 5 API + static host (ESM)
-│   ├── index.js      # Server entry — serves client/dist + /api/v1 routes
+│   ├── index.js      # Entry — connects to MongoDB, then listens
+│   ├── app.js        # The Express app — serves client/dist + /api/v1 routes
 │   ├── controllers/  # health, blog, auth
 │   ├── models/       # Mongoose models: User, Blog
 │   ├── middleware/   # authMiddleware — verifies JWT
 │   ├── routes/       # health, blog, auth routers
+│   ├── tests/        # Jest + supertest
 │   └── data/         # database.js — Mongoose connection
 └── client/           # React 19 + Vite frontend
     ├── src/          # pages/, components/, context/, data/
@@ -93,6 +95,35 @@ Obtain the JWT from `POST /auth/login`.
 | `PATCH`  | `/blogs/:id` | Partially update a blog post |
 | `DELETE` | `/blogs/:id` | Delete a blog post           |
 | `DELETE` | `/blogs`     | Delete all blog posts        |
+
+---
+
+## Testing
+
+```bash
+cd server && npm test        # or: npm run test:watch
+```
+
+Jest + [supertest](https://github.com/ladjs/supertest), running in **native ESM
+mode** (`NODE_OPTIONS=--experimental-vm-modules`, `transform: {}`). No Babel —
+the server has no JSX to compile, and skipping the transform keeps
+`import.meta.url` working, which `app.js` and `adminController.js` both rely on.
+This is deliberately different from `client/`, which does need `babel-jest`.
+
+`index.js` is split from `app.js` so tests can `import app` and drive it with
+supertest without connecting to Atlas or binding port 8080 — `index.js` owns
+`connectDB()` and `listen()`, `app.js` owns the middleware and routes.
+
+Tests live in `server/tests/`:
+
+- `health.test.js` — the reference example: supertest against the imported app.
+- `setupEnv.js` — sets `JWT_SECRET` before the module graph loads (both
+  `authController.js` and `authMiddleware.js` read it into a module-level const
+  at import time, so it has to be there first).
+- `testDb.js` — call `useTestDb()` in any suite that needs a database. It starts
+  an in-memory MongoDB, points Mongoose at it, wipes collections between tests,
+  and tears it down. Suites that don't need Mongo don't pay for it. The first
+  DB-backed run downloads a `mongod` binary (cached afterwards).
 
 ---
 

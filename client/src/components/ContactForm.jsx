@@ -1,10 +1,7 @@
-import React from "react";
 import { useForm } from "@formspree/react";
 
 function ContactForm() {
   const [state, handleSubmit] = useForm(import.meta.env.VITE_FORMSPREE_KEY);
-
-  console.log(state);
 
   if (state.succeeded) {
     return <p>Thanks for joining!</p>;

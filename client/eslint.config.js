@@ -25,4 +25,11 @@ export default defineConfig([
       globals: globals.node,
     },
   },
+  {
+    // Jest injects describe/it/expect as globals.
+    files: ["**/*.test.{js,jsx}", "src/setupTests.js"],
+    languageOptions: {
+      globals: { ...globals.browser, ...globals.jest },
+    },
+  },
 ]);

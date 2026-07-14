@@ -18,20 +18,20 @@ Server (`cd server`):
 
 - `npm run dev` — nodemon, port 8080
 - `npm start` — plain node
-- No tests (`test` script is a placeholder stub)
+- `npm test` — Jest (native ESM, no Babel) + supertest; see `server/README.md`
 
 Client (`cd client`):
 
 - `npm run dev` — Vite HMR dev server; proxies `/api` → `http://localhost:8080` (see `vite.config.js`)
 - `npm run build` — production build to `client/dist/`
 - `npm run lint` — ESLint (flat config, `eslint.config.js`)
-- No test runner configured
+- `npm test` — Jest (jsdom + React Testing Library, via `babel-jest`; see `client/CLAUDE.md`)
 
 Root: `npm run format` — Prettier over the tree.
 
 ## How the pieces connect
 
-**Serving model:** `server/index.js` serves `client/dist/` as static files and has an SPA catch-all fallback to `index.html`. So for a production-like run you must `cd client && npm run build` first, then start the server — it serves the built React app _and_ the API from port 8080. During active frontend work, use the Vite dev server instead and let its proxy forward `/api` to the running Express server.
+**Serving model:** `server/app.js` holds the Express app — it serves `client/dist/` as static files and has an SPA catch-all fallback to `index.html`. `server/index.js` is the entry point: it connects to MongoDB and calls `listen()`. The split exists so tests can import the app without a database or a bound port. So for a production-like run you must `cd client && npm run build` first, then start the server — it serves the built React app _and_ the API from port 8080. During active frontend work, use the Vite dev server instead and let its proxy forward `/api` to the running Express server.
 
 **API:** all routes under `/api/v1` — `healthRoutes`, `blogRoutes`, `auth`. Blog reads are public; writes (`POST/PUT/PATCH/DELETE`) require `authMiddleware`.
 
